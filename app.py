@@ -38,13 +38,10 @@ with right_col:
         unsafe_allow_html=True
     )
 
-    form_left, form_right = st.columns([3, 2])
-
-    with form_left:
-        destination = st.text_input("Enter Destination")
-        days_input = st.text_input("Enter number of days")
-        nights_input = st.text_input("Enter number of nights")
-        generate_btn = st.button("✨ Generate Itinerary")
+    destination = st.text_input("Enter Destination")
+    days_input = st.text_input("Enter number of days")
+    nights_input = st.text_input("Enter number of nights")
+    generate_btn = st.button("✨ Generate Itinerary")
 
 # ---------------- PROMPT ----------------
 def build_prompt(dest, days, nights):
@@ -92,16 +89,28 @@ No tables
 Use emojis exactly as shown
 """
 
-# ---------------- CLEAN TEXT (PDF SAFE) ----------------
+# ---------------- TEXT CLEANING FOR PDF ----------------
 def clean_text(text):
     text = re.sub(r"[#*]", "", text)
-    # Remove emojis and unsupported characters for PDF
+
+    replacements = {
+        "–": "-",
+        "—": "-",
+        "’": "'",
+        "“": '"',
+        "”": '"',
+        "•": "-",
+        "→": "->",
+    }
+
+    for k, v in replacements.items():
+        text = text.replace(k, v)
+
     text = text.encode("latin-1", "ignore").decode("latin-1")
     return text.strip()
 
 # ---------------- PDF CREATION ----------------
 def create_pdf(text):
-    logo_path = os.path.abspath("logo.png")
     text = clean_text(text)
 
     pdf = FPDF()
@@ -121,7 +130,7 @@ def create_pdf(text):
     pdf.output(pdf_path)
     return pdf_path
 
-# ---------------- GENERATE ----------------
+# ---------------- GENERATE ITINERARY ----------------
 if generate_btn:
     if not destination or not days_input or not nights_input:
         st.warning("⚠️ Please fill all the fields before generating itinerary.")
