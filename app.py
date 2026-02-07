@@ -1,10 +1,10 @@
 import streamlit as st
 import google.generativeai as genai
-import pdfkit
+from fpdf import FPDF
 import os
 import re
 
-# ---------------- GEMINI CONFIG (UNCHANGED) ----------------
+# ---------------- GEMINI CONFIG ----------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 model = genai.GenerativeModel(
@@ -16,10 +16,6 @@ model = genai.GenerativeModel(
         "max_output_tokens": 4600,
     }
 )
-
-# ---------------- WKHTMLTOPDF CONFIG ----------------
-path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
-config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 st.set_page_config(page_title="AI Travel Planner", page_icon="🌍", layout="wide")
 
@@ -100,50 +96,27 @@ Use emojis exactly as shown
 def clean_text(text):
     return re.sub(r"[#*]", "", text).strip()
 
-# ---------------- PDF CREATION ----------------
+# ---------------- PDF CREATION (FPDF CLOUD SAFE) ----------------
 def create_pdf(text):
-    logo_path = os.path.abspath("logo.png")
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
+
+    # Logo at top
+    if os.path.exists("logo.png"):
+        pdf.image("logo.png", x=80, w=50)
+        pdf.ln(10)
+
+    pdf.set_font("Arial", size=12)
+
     text = clean_text(text)
-    html_text = text.replace("\n", "<br>")
 
-    html_content = f"""
-    <html>
-    <head>
-    <meta charset="UTF-8">
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            padding: 50px;
-            line-height: 1.6;
-        }}
-        .logo {{
-            text-align:center;
-            margin-bottom: 12px;
-        }}
-        h1 {{
-            text-align:center;
-        }}
-    </style>
-    </head>
-    <body>
-        <div class="logo">
-            <img src="file:///{logo_path}" width="110">
-        </div>
-        <h1>Travel Itinerary</h1>
-        <div>{html_text}</div>
-    </body>
-    </html>
-    """
+    for line in text.split("\n"):
+        pdf.multi_cell(0, 8, line)
 
-    options = {
-        'enable-local-file-access': None,
-        'footer-center': 'Page [page]',
-        'margin-bottom': '15mm'
-    }
-
-    pdf_file = "travel_itinerary.pdf"
-    pdfkit.from_string(html_content, pdf_file, configuration=config, options=options)
-    return pdf_file
+    pdf_path = "travel_itinerary.pdf"
+    pdf.output(pdf_path)
+    return pdf_path
 
 # ---------------- GENERATE ----------------
 if generate_btn:
