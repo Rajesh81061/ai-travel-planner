@@ -1,4 +1,4 @@
 streamlit
 google-generativeai
-pdfkit
-pillow
+fpdf
+Pillow
