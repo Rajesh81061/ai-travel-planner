@@ -1,0 +1,5 @@
+.streamlit/secrets.toml
+venv/
+*.pdf
+__pycache__/
+
