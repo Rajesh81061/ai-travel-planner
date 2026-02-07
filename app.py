@@ -92,27 +92,30 @@ No tables
 Use emojis exactly as shown
 """
 
-# ---------------- CLEAN TEXT ----------------
+# ---------------- CLEAN TEXT (PDF SAFE) ----------------
 def clean_text(text):
-    return re.sub(r"[#*]", "", text).strip()
+    text = re.sub(r"[#*]", "", text)
+    # Remove emojis and unsupported characters for PDF
+    text = text.encode("latin-1", "ignore").decode("latin-1")
+    return text.strip()
 
-# ---------------- PDF CREATION (FPDF CLOUD SAFE) ----------------
+# ---------------- PDF CREATION ----------------
 def create_pdf(text):
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.add_page()
-
-    # Logo at top
-    if os.path.exists("logo.png"):
-        pdf.image("logo.png", x=80, w=50)
-        pdf.ln(10)
-
-    pdf.set_font("Arial", size=12)
-
+    logo_path = os.path.abspath("logo.png")
     text = clean_text(text)
 
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=10)
+    pdf.add_page()
+
+    pdf.set_font("Arial", size=16)
+    pdf.cell(0, 10, "Travel Itinerary", ln=True, align="C")
+    pdf.ln(5)
+
+    pdf.set_font("Arial", size=11)
+
     for line in text.split("\n"):
-        pdf.multi_cell(0, 8, line)
+        pdf.multi_cell(0, 6, line)
 
     pdf_path = "travel_itinerary.pdf"
     pdf.output(pdf_path)
