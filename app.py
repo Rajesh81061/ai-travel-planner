@@ -129,7 +129,6 @@ def create_pdf(text, destination):
     pdf = PDF()
     pdf.set_auto_page_break(auto=True, margin=12)
 
-    # -------- COVER PAGE --------
     pdf.add_page()
     img_path = get_unsplash_image(destination)
 
@@ -149,7 +148,6 @@ def create_pdf(text, destination):
     pdf.set_font("Arial", "", 14)
     pdf.cell(0, 10, "Smart Planning. Elevated Travel.", align="C", ln=True)
 
-    # -------- ITINERARY PAGES --------
     pdf.add_page()
     pdf.set_text_color(0, 0, 0)
 
@@ -162,7 +160,6 @@ def create_pdf(text, destination):
     for line in text.split("\n"):
         stripped = line.strip()
 
-        # ----- SECTION TITLES (NOW BOLD) -----
         if stripped.lower().startswith(("✈️", "🍲", "🏨", "travel tips", "food recommendations", "hotel/stay suggestions")):
             pdf.ln(5)
             pdf.set_font("Arial", "B", 14)
@@ -170,12 +167,10 @@ def create_pdf(text, destination):
             pdf.ln(2)
             pdf.set_font("Arial", size=11)
 
-        # ----- BULLETS -----
         elif stripped.startswith("-"):
             pdf.multi_cell(0, 6, stripped)
             pdf.ln(1)
 
-        # ----- DAY HEADINGS -----
         elif stripped.lower().startswith("day"):
             pdf.ln(4)
             pdf.set_font("Arial", "B", 13)
@@ -196,6 +191,10 @@ if generate_btn:
         st.warning("⚠️ Please fill all the fields before generating itinerary.")
     elif not days_input.isdigit() or not nights_input.isdigit():
         st.warning("⚠️ Days and Nights must be valid numbers.")
+    elif int(days_input) > 15:
+        st.warning("⚠️ Maximum trip length allowed is 15 days.")
+    elif int(nights_input) >= int(days_input):
+        st.warning("⚠️ Nights must be less than number of days.")
     else:
         days = int(days_input)
         nights = int(nights_input)
