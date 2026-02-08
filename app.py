@@ -91,25 +91,13 @@ No tables
 Use emojis exactly as shown
 """
 
-# ---------------- TEXT CLEANING FOR PDF ----------------
+# ---------------- TEXT CLEANING ----------------
 def clean_text(text):
     text = re.sub(r"[#*]", "", text)
-
-    replacements = {
-        "–": "-",
-        "—": "-",
-        "’": "'",
-        "“": '"',
-        "”": '"',
-        "•": "-",
-        "→": "->",
-    }
-
+    replacements = {"–": "-", "—": "-", "’": "'", "“": '"', "”": '"', "•": "-"}
     for k, v in replacements.items():
         text = text.replace(k, v)
-
-    text = text.encode("latin-1", "ignore").decode("latin-1")
-    return text.strip()
+    return text.encode("latin-1", "ignore").decode("latin-1").strip()
 
 # ---------------- CUSTOM PDF CLASS ----------------
 class PDF(FPDF):
@@ -174,17 +162,20 @@ def create_pdf(text, destination):
     for line in text.split("\n"):
         stripped = line.strip()
 
-        if stripped.startswith(("✈️", "🍲", "🏨")):
+        # ----- SECTION TITLES (NOW BOLD) -----
+        if stripped.lower().startswith(("✈️", "🍲", "🏨", "travel tips", "food recommendations", "hotel/stay suggestions")):
             pdf.ln(5)
             pdf.set_font("Arial", "B", 14)
             pdf.multi_cell(0, 8, stripped)
             pdf.ln(2)
             pdf.set_font("Arial", size=11)
 
+        # ----- BULLETS -----
         elif stripped.startswith("-"):
             pdf.multi_cell(0, 6, stripped)
             pdf.ln(1)
 
+        # ----- DAY HEADINGS -----
         elif stripped.lower().startswith("day"):
             pdf.ln(4)
             pdf.set_font("Arial", "B", 13)
