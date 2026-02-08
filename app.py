@@ -3,6 +3,7 @@ import google.generativeai as genai
 from fpdf import FPDF
 import os
 import re
+import requests
 
 # ---------------- GEMINI CONFIG ----------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
@@ -122,9 +123,35 @@ def create_pdf(text, destination):
 
     pdf = PDF()
     pdf.set_auto_page_break(auto=True, margin=12)
-    pdf.add_page()
 
-    # Destination Title
+    # -------- COVER PAGE --------
+    image_url = f"https://source.unsplash.com/1200x800/?{destination},travel"
+    image_path = "/tmp/cover.jpg"
+
+    try:
+        img_data = requests.get(image_url, timeout=10).content
+        with open(image_path, "wb") as handler:
+            handler.write(img_data)
+
+        pdf.add_page()
+        pdf.image(image_path, x=0, y=0, w=210, h=297)
+
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font("Arial", "B", 26)
+        pdf.ln(120)
+        pdf.cell(0, 15, f"{destination.upper()} TRAVEL ITINERARY", align="C", ln=True)
+
+        pdf.set_font("Arial", "", 14)
+        pdf.cell(0, 10, "AI Generated Personalized Plan", align="C", ln=True)
+
+        os.remove(image_path)
+    except:
+        pass
+
+    # -------- ITINERARY PAGES --------
+    pdf.add_page()
+    pdf.set_text_color(0, 0, 0)
+
     pdf.set_font("Arial", "B", 18)
     pdf.cell(0, 10, f"{destination} Travel Itinerary", ln=True, align="C")
     pdf.ln(4)
@@ -136,7 +163,6 @@ def create_pdf(text, destination):
     for line in lines:
         stripped = line.strip()
 
-        # Section headers (Tips, Food, Hotels)
         if stripped.startswith("✈️") or stripped.startswith("🍲") or stripped.startswith("🏨"):
             pdf.ln(5)
             pdf.set_font("Arial", "B", 14)
@@ -144,12 +170,10 @@ def create_pdf(text, destination):
             pdf.ln(2)
             pdf.set_font("Arial", size=11)
 
-        # Bullet points
         elif stripped.startswith("-"):
             pdf.multi_cell(0, 6, stripped)
             pdf.ln(1)
 
-        # Day titles
         elif stripped.lower().startswith("day"):
             pdf.ln(4)
             pdf.set_font("Arial", "B", 13)
@@ -157,7 +181,6 @@ def create_pdf(text, destination):
             pdf.ln(1)
             pdf.set_font("Arial", size=11)
 
-        # Regular paragraphs
         else:
             pdf.multi_cell(0, 6, stripped)
 
