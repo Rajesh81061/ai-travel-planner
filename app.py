@@ -9,7 +9,6 @@ import requests
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 UNSPLASH_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
 
-
 model = genai.GenerativeModel(
     "gemini-flash-latest",
     generation_config={
@@ -119,36 +118,48 @@ class PDF(FPDF):
         self.set_font("Arial", size=9)
         self.cell(0, 5, f"Page {self.page_no()}", align="R")
 
+# ---------------- UNSPLASH IMAGE FETCH ----------------
+def get_unsplash_image(dest):
+    try:
+        url = f"https://api.unsplash.com/photos/random?query={dest}&orientation=landscape&client_id={UNSPLASH_KEY}"
+        res = requests.get(url, timeout=10)
+        if res.status_code == 200:
+            img_url = res.json()["urls"]["regular"]
+            img_data = requests.get(img_url, timeout=10).content
+            path = "/tmp/cover.jpg"
+            with open(path, "wb") as f:
+                f.write(img_data)
+            return path
+        else:
+            return None
+    except:
+        return None
+
 # ---------------- PDF CREATION ----------------
 def create_pdf(text, destination):
     text = clean_text(text)
-
     pdf = PDF()
     pdf.set_auto_page_break(auto=True, margin=12)
 
     # -------- COVER PAGE --------
-    image_url = f"https://source.unsplash.com/1200x800/?{destination},travel"
-    image_path = "/tmp/cover.jpg"
+    pdf.add_page()
+    img_path = get_unsplash_image(destination)
 
-    try:
-        img_data = requests.get(image_url, timeout=10).content
-        with open(image_path, "wb") as handler:
-            handler.write(img_data)
-
-        pdf.add_page()
-        pdf.image(image_path, x=0, y=0, w=210, h=297)
-
+    if img_path and os.path.exists(img_path):
+        pdf.image(img_path, x=0, y=0, w=210, h=297)
+        os.remove(img_path)
         pdf.set_text_color(255, 255, 255)
-        pdf.set_font("Arial", "B", 26)
-        pdf.ln(120)
-        pdf.cell(0, 15, f"{destination.upper()} TRAVEL ITINERARY", align="C", ln=True)
+    else:
+        pdf.set_fill_color(20, 40, 70)
+        pdf.rect(0, 0, 210, 297, 'F')
+        pdf.set_text_color(255, 255, 255)
 
-        pdf.set_font("Arial", "", 14)
-        pdf.cell(0, 10, "AI Generated Personalized Plan", align="C", ln=True)
+    pdf.set_font("Arial", "B", 26)
+    pdf.ln(120)
+    pdf.cell(0, 15, f"{destination.upper()} TRAVEL ITINERARY", align="C", ln=True)
 
-        os.remove(image_path)
-    except:
-        pass
+    pdf.set_font("Arial", "", 14)
+    pdf.cell(0, 10, "Smart Planning. Elevated Travel.", align="C", ln=True)
 
     # -------- ITINERARY PAGES --------
     pdf.add_page()
@@ -160,12 +171,10 @@ def create_pdf(text, destination):
 
     pdf.set_font("Arial", size=11)
 
-    lines = text.split("\n")
-
-    for line in lines:
+    for line in text.split("\n"):
         stripped = line.strip()
 
-        if stripped.startswith("✈️") or stripped.startswith("🍲") or stripped.startswith("🏨"):
+        if stripped.startswith(("✈️", "🍲", "🏨")):
             pdf.ln(5)
             pdf.set_font("Arial", "B", 14)
             pdf.multi_cell(0, 8, stripped)
@@ -218,5 +227,3 @@ if "itinerary" in st.session_state:
             file_name="travel_itinerary.pdf",
             mime="application/pdf"
         )
-
-
