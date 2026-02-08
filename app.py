@@ -109,22 +109,57 @@ def clean_text(text):
     text = text.encode("latin-1", "ignore").decode("latin-1")
     return text.strip()
 
+# ---------------- CUSTOM PDF CLASS ----------------
+class PDF(FPDF):
+    def footer(self):
+        self.set_y(-10)
+        self.set_font("Arial", size=9)
+        self.cell(0, 5, f"Page {self.page_no()}", align="R")
+
 # ---------------- PDF CREATION ----------------
-def create_pdf(text):
+def create_pdf(text, destination):
     text = clean_text(text)
 
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=10)
+    pdf = PDF()
+    pdf.set_auto_page_break(auto=True, margin=12)
     pdf.add_page()
 
-    pdf.set_font("Arial", size=16)
-    pdf.cell(0, 10, "Travel Itinerary", ln=True, align="C")
-    pdf.ln(5)
+    # Destination Title
+    pdf.set_font("Arial", "B", 18)
+    pdf.cell(0, 10, f"{destination} Travel Itinerary", ln=True, align="C")
+    pdf.ln(4)
 
     pdf.set_font("Arial", size=11)
 
-    for line in text.split("\n"):
-        pdf.multi_cell(0, 6, line)
+    lines = text.split("\n")
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Section headers (Tips, Food, Hotels)
+        if stripped.startswith("✈️") or stripped.startswith("🍲") or stripped.startswith("🏨"):
+            pdf.ln(5)
+            pdf.set_font("Arial", "B", 14)
+            pdf.multi_cell(0, 8, stripped)
+            pdf.ln(2)
+            pdf.set_font("Arial", size=11)
+
+        # Bullet points
+        elif stripped.startswith("-"):
+            pdf.multi_cell(0, 6, stripped)
+            pdf.ln(1)
+
+        # Day titles
+        elif stripped.lower().startswith("day"):
+            pdf.ln(4)
+            pdf.set_font("Arial", "B", 13)
+            pdf.multi_cell(0, 7, stripped)
+            pdf.ln(1)
+            pdf.set_font("Arial", size=11)
+
+        # Regular paragraphs
+        else:
+            pdf.multi_cell(0, 6, stripped)
 
     pdf_path = "travel_itinerary.pdf"
     pdf.output(pdf_path)
@@ -144,12 +179,13 @@ if generate_btn:
             prompt = build_prompt(destination, days, nights)
             response = model.generate_content(prompt)
             st.session_state.itinerary = response.text
+            st.session_state.destination = destination
 
 # ---------------- DISPLAY RESULT ----------------
 if "itinerary" in st.session_state:
     st.markdown(st.session_state.itinerary)
 
-    pdf_path = create_pdf(st.session_state.itinerary)
+    pdf_path = create_pdf(st.session_state.itinerary, st.session_state.destination)
     with open(pdf_path, "rb") as f:
         st.download_button(
             "📄 Download Itinerary as PDF",
