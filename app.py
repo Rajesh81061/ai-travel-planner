@@ -7,6 +7,9 @@ import requests
 
 # ---------------- GEMINI CONFIG ----------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+UNSPLASH_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
+st.write("Unsplash key loaded:", bool(UNSPLASH_KEY))
+
 
 model = genai.GenerativeModel(
     "gemini-flash-latest",
@@ -216,3 +219,4 @@ if "itinerary" in st.session_state:
             file_name="travel_itinerary.pdf",
             mime="application/pdf"
         )
+
