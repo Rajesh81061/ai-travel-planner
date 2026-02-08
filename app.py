@@ -181,9 +181,14 @@ def create_pdf(text, destination):
         else:
             pdf.multi_cell(0, 6, stripped)
 
-    pdf_path = "travel_itinerary.pdf"
+       pdf_path = "travel_itinerary.pdf"
+
+    # 🔒 Protect PDF (allow copy & print, prevent editing)
+    pdf.set_protection(perm=['print', 'copy'], owner_pwd='AITravelPlanner')
+
     pdf.output(pdf_path)
     return pdf_path
+
 
 # ---------------- GENERATE ITINERARY ----------------
 if generate_btn:
@@ -217,3 +222,4 @@ if "itinerary" in st.session_state:
             file_name="travel_itinerary.pdf",
             mime="application/pdf"
         )
+
