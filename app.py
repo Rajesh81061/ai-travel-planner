@@ -207,6 +207,7 @@ if generate_btn:
 
 # ---------------- DISPLAY RESULT ----------------
 if "itinerary" in st.session_state:
+    st.markdown("## 📍 Generated Itinerary")
     st.markdown(st.session_state.itinerary)
 
     pdf_path = create_pdf(st.session_state.itinerary, st.session_state.destination)
@@ -217,4 +218,3 @@ if "itinerary" in st.session_state:
             file_name="travel_itinerary.pdf",
             mime="application/pdf"
         )
-
