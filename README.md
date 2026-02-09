@@ -52,14 +52,22 @@ NLP (LLM / AI Model)	Itinerary generation
 APIs (optional)	Location & attraction data
 GitHub	Version control
 
-📂 Project Structure
-Explore-With-AI/
-│
-├── app.py                 # Main application file
-├── requirements.txt       # Project dependencies
-├── README.md              # Project documentation
-├── assets/                # Images or static files
-└── modules/               # Helper functions (AI logic, prompts, etc.)
+### 📁 Project Structure
+
+```
+ai-travel-planner/
+├── Final Deliverables/
+│   └── code files/
+│       ├── app.py
+│       ├── requirements.txt
+│       ├── logo.png
+│       └── travel.jpg
+├── Assignments/
+├── Project Design & Planning/
+├── README.md
+└── .gitignore
+```
+
 
 💡 Example Use Case
 
