@@ -53,20 +53,19 @@ APIs (optional)	Location & attraction data
 GitHub	Version control
 
 ### 📁 Project Structure
-
-```
 ai-travel-planner/
-├── Final Deliverables/
-│   └── code files/
-│       ├── app.py
-│       ├── requirements.txt
-│       ├── logo.png
-│       └── travel.jpg
-├── Assignments/
-├── Project Design & Planning/
+│
+├── app.py
+├── requirements.txt
 ├── README.md
-└── .gitignore
-```
+├── .gitignore
+├── logo.png
+├── travel.jpg
+│
+├── Assignments/
+│
+└── Project Design & Planning/
+
 
 
 💡 Example Use Case
