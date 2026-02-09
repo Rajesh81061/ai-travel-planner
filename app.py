@@ -21,6 +21,14 @@ model = genai.GenerativeModel(
 
 st.set_page_config(page_title="AI Travel Planner", page_icon="🌍", layout="wide")
 
+# 🔒 HIDE STREAMLIT HEADER (Removes GitHub + Fork buttons)
+st.markdown("""
+    <style>
+        header {visibility: hidden;}
+        footer {visibility: hidden;}
+    </style>
+""", unsafe_allow_html=True)
+
 # ---------------- MAIN LAYOUT ----------------
 left_col, right_col = st.columns([1.1, 2])
 
