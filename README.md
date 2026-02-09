@@ -51,6 +51,7 @@ Streamlit / Flask	Web interface
 NLP (LLM / AI Model)	Itinerary generation
 APIs (optional)	Location & attraction data
 GitHub	Version control
+
 📂 Project Structure
 Explore-With-AI/
 │
