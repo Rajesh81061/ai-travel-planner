@@ -28,9 +28,9 @@ The user enters:
 
 Destination
 
-Trip duration
+number of days
 
-Interests (e.g., adventure, food, history, nature)
+number of nights
 
 The AI model processes the input using NLP.
 
