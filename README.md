@@ -44,13 +44,15 @@ Activities
 
 Food recommendations
 
-🛠️ Tech Stack
-Technology	Purpose
-Python	Backend logic
-Streamlit / Flask	Web interface
-NLP (LLM / AI Model)	Itinerary generation
-APIs (optional)	Location & attraction data
-GitHub	Version control
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| Python | Backend logic |
+| Streamlit / Flask | Web interface |
+| NLP (LLM / AI Model) | Itinerary generation |
+| APIs (optional) | Location & attraction data |
+| GitHub | Version control |
 
 ## 📁 Project Structure
 
