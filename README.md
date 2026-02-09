@@ -52,7 +52,9 @@ NLP (LLM / AI Model)	Itinerary generation
 APIs (optional)	Location & attraction data
 GitHub	Version control
 
-### 📁 Project Structure
+## 📁 Project Structure
+
+```
 ai-travel-planner/
 │
 ├── app.py
@@ -65,6 +67,8 @@ ai-travel-planner/
 ├── Assignments/
 │
 └── Project Design & Planning/
+```
+
 
 
 
