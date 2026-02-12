@@ -54,25 +54,30 @@ Food recommendations
 | APIs (optional) | Location & attraction data |
 | GitHub | Version control |
 
+## 📁 Project Structure
+
+```
 ai-travel-planner/
 │
-├── app.py                          # Main Streamlit application
-├── requirements.txt                # Python dependencies
-├── README.md                       # Project documentation
-├── .gitignore                      # Ignored files list
-├── logo.png                        # App logo
-├── travel.jpg                      # Travel image asset
-├── travel_itinerary.pdf            # Generated itinerary sample
-├── Demo Video.mp4                  # Project demo recording
-├── Project Report.pdf              # Final project report
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+├── logo.png
+├── travel.jpg
+├── travel_itinerary.pdf
+├── Demo Video.mp4
+├── Project Report.pdf
 │
-├── .devcontainer/                  # Development container configuration
+├── .devcontainer/
 │
-├── Initializing The Model phase/   # Model setup and initialization
-├── Interfacing With Pre-Trained Model phase/   # Model interaction logic
-├── Model Deployment phase/         # Deployment related files
-├── Project Initialization and Planning Phase/  # Planning documents
-└── Requirements Specification phase/           # Requirement analysis
+├── Initializing The Model phase/
+├── Interfacing With Pre-Trained Model phase/
+├── Model Deployment phase/
+├── Project Initialization and Planning Phase/
+└── Requirements Specification phase/
+```
+
 
 
 
