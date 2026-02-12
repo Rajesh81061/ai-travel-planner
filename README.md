@@ -28,9 +28,9 @@ The user enters:
 
 Destination
 
-Trip duration
+number of days
 
-Interests (e.g., adventure, food, history, nature)
+number of nights
 
 The AI model processes the input using NLP.
 
@@ -44,13 +44,15 @@ Activities
 
 Food recommendations
 
-🛠️ Tech Stack
-Technology	Purpose
-Python	Backend logic
-Streamlit / Flask	Web interface
-NLP (LLM / AI Model)	Itinerary generation
-APIs (optional)	Location & attraction data
-GitHub	Version control
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| Python | Backend logic |
+| Streamlit / Flask | Web interface |
+| NLP (LLM / AI Model) | Itinerary generation |
+| APIs (optional) | Location & attraction data |
+| GitHub | Version control |
 
 ## 📁 Project Structure
 
