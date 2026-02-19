@@ -57,7 +57,6 @@ Food recommendations
 ## 📁 Project Structure
 
 ai-travel-planner/
-│
 ├── app.py
 ├── requirements.txt
 ├── README.md
