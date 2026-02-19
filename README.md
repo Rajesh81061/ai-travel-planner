@@ -100,7 +100,6 @@ ai-travel-planner/
 
 
 
-
 💡 Example Use Case
 
 Input:
