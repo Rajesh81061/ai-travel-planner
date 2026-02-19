@@ -57,44 +57,45 @@ Food recommendations
 ## 📁 Project Structure
 
 ai-travel-planner/
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── logo.png
-├── travel.jpg
-├── travel_itinerary.pdf
 │
-├── .devcontainer/
+├── 📄 app.py
+├── 📄 requirements.txt
+├── 📄 README.md
+├── 📄 .gitignore
+├── 🖼️ logo.png
+├── 🖼️ travel.jpg
+├── 📄 travel_itinerary.pdf
 │
-├── Ideation Phase/
-│   ├── Brainstorming- Idea Generation- Prioritization.pdf
-│   ├── Empathy Map Canvas.pdf
-│   └── Problem Statements.pdf
+├── 📁 .devcontainer/
 │
-├── Requirement Analysis phase/
-│   ├── Data Flow Diagrams and User Stories.pdf
-│   ├── Solution Requirements.pdf
-│   ├── customer journey.pdf
-│   └── technology stack.pdf
+├── 📁 Ideation Phase/
+│   ├── 📄 Brainstorming- Idea Generation- Prioritization.pdf
+│   ├── 📄 Empathy Map Canvas.pdf
+│   └── 📄 Problem Statements.pdf
 │
-├── project planning phase/
-│   └── Project Planning.pdf
+├── 📁 Requirement Analysis phase/
+│   ├── 📄 Data Flow Diagrams and User Stories.pdf
+│   ├── 📄 Solution Requirements.pdf
+│   ├── 📄 customer journey.pdf
+│   └── 📄 technology stack.pdf
 │
-├── project design phase/
-│   ├── Problem - Solution Fit.pdf
-│   ├── Proposed Solution.pdf
-│   └── Solution Architecture.pdf
+├── 📁 project planning phase/
+│   └── 📄 Project Planning.pdf
 │
-├── Project Devolpment Phase/
-│   ├── GenAI Functional & Performance Testing.pdf
-│   └── UAT Report.pdf
+├── 📁 project design phase/
+│   ├── 📄 Problem - Solution Fit.pdf
+│   ├── 📄 Proposed Solution.pdf
+│   └── 📄 Solution Architecture.pdf
 │
-├── Project Demonstration/
-│   └── Demo Video.mp4
+├── 📁 Project Devolpment Phase/
+│   ├── 📄 GenAI Functional & Performance Testing.pdf
+│   └── 📄 UAT Report.pdf
 │
-└── Project Documentation/
-    └── Final Report.pdf
+├── 📁 Project Demonstration/
+│   └── 🎥 Demo Video.mp4
+│
+└── 📁 Project Documentation/
+    └── 📄 Final Report.pdf
 
 
 
