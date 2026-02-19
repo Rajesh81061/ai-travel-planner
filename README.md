@@ -56,7 +56,6 @@ Food recommendations
 
 ## 📁 Project Structure
 
-```
 ai-travel-planner/
 │
 ├── app.py
@@ -66,17 +65,37 @@ ai-travel-planner/
 ├── logo.png
 ├── travel.jpg
 ├── travel_itinerary.pdf
-├── Demo Video.mp4
-├── Project Report.pdf
 │
 ├── .devcontainer/
 │
-├── Initializing The Model phase/
-├── Interfacing With Pre-Trained Model phase/
-├── Model Deployment phase/
-├── Project Initialization and Planning Phase/
-└── Requirements Specification phase/
-```
+├── Ideation Phase/
+│   ├── Brainstorming- Idea Generation- Prioritization.pdf
+│   ├── Empathy Map Canvas.pdf
+│   └── Problem Statements.pdf
+│
+├── Requirement Analysis phase/
+│   ├── Data Flow Diagrams and User Stories.pdf
+│   ├── Solution Requirements.pdf
+│   ├── customer journey.pdf
+│   └── technology stack.pdf
+│
+├── project planning phase/
+│   └── Project Planning.pdf
+│
+├── project design phase/
+│   ├── Problem - Solution Fit.pdf
+│   ├── Proposed Solution.pdf
+│   └── Solution Architecture.pdf
+│
+├── Project Devolpment Phase/
+│   ├── GenAI Functional & Performance Testing.pdf
+│   └── UAT Report.pdf
+│
+├── Project Demonstration/
+│   └── Demo Video.mp4
+│
+└── Project Documentation/
+    └── Final Report.pdf
 
 
 
