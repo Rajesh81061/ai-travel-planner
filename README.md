@@ -55,7 +55,7 @@ Food recommendations
 | GitHub | Version control |
 
 ## 📁 Project Structure
-
+```
 ai-travel-planner/
 │
 ├── app.py
@@ -87,7 +87,7 @@ ai-travel-planner/
 │   ├── Proposed Solution.pdf
 │   └── Solution Architecture.pdf
 │
-├── Project Devolpment Phase/
+├── Project Development Phase/
 │   ├── GenAI Functional & Performance Testing.pdf
 │   └── UAT Report.pdf
 │
@@ -96,6 +96,8 @@ ai-travel-planner/
 │
 └── Project Documentation/
     └── Final Report.pdf
+```
+
 
 
 💡 Example Use Case
